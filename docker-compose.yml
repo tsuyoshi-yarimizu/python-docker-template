@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  python:
+    build: ./infra/python
+    working_dir: '/work'
+    volumes:
+      - ./src:/work
+    tty: true
+  dynamodb:
+    build: ./infra/dynamodb
+    command: -jar DynamoDBLocal.jar -dbPath ./data
+    volumes:
+      - dynamodb-store:/home/dynamodblocal/data
+    ports:
+      - 50707:8000
+volumes:
+  dynamodb-store:
+
